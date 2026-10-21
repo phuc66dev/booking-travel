@@ -1,0 +1,244 @@
+{
+  "generatedAt": "2026-10-21T17:22:34.701Z",
+  "viteVersion": "8.3.5",
+  "method": "Vite manifest; sum unique static dependencies for entry + home. gzip is calculated per file, not a network measurement.",
+  "baseline": {
+    "mainJsBytes": 314260,
+    "gzipBytes": 98040,
+    "source": "Previous modularization build log, rounded to 0.01 kB; no route splitting"
+  },
+  "initialHome": {
+    "bytes": 283780,
+    "gzipBytes": 90768,
+    "files": [
+      "assets/SafeImage-BY6oAheI.js",
+      "assets/TourCard-DCTO4rq2.js",
+      "assets/TourSearch-r1fu_ERE.js",
+      "assets/useQuery-C2BmC7jQ.js",
+      "assets/index-DeA8X8h4.js",
+      "assets/HomePage-BpAYKHG9.js"
+    ]
+  },
+  "routeChunkCount": 7,
+  "chunks": [
+    {
+      "source": "_SafeImage-BY6oAheI.js",
+      "file": "assets/SafeImage-BY6oAheI.js",
+      "bytes": 2599,
+      "gzipBytes": 1205,
+      "imports": [
+        "_useQuery-C2BmC7jQ.js",
+        "index.html"
+      ],
+      "dynamicImports": [],
+      "isEntry": false,
+      "isDynamicEntry": false
+    },
+    {
+      "source": "_TourCard-DCTO4rq2.js",
+      "file": "assets/TourCard-DCTO4rq2.js",
+      "bytes": 1212,
+      "gzipBytes": 658,
+      "imports": [
+        "_SafeImage-BY6oAheI.js",
+        "index.html"
+      ],
+      "dynamicImports": [],
+      "isEntry": false,
+      "isDynamicEntry": false
+    },
+    {
+      "source": "_TourSearch-r1fu_ERE.js",
+      "file": "assets/TourSearch-r1fu_ERE.js",
+      "bytes": 1089,
+      "gzipBytes": 602,
+      "imports": [
+        "index.html"
+      ],
+      "dynamicImports": [],
+      "isEntry": false,
+      "isDynamicEntry": false
+    },
+    {
+      "source": "_booking-keys-CMf-luKD.js",
+      "file": "assets/booking-keys-CMf-luKD.js",
+      "bytes": 289,
+      "gzipBytes": 197,
+      "imports": [],
+      "dynamicImports": [],
+      "isEntry": false,
+      "isDynamicEntry": false
+    },
+    {
+      "source": "_booking-mutations-D01r6fGD.js",
+      "file": "assets/booking-mutations-D01r6fGD.js",
+      "bytes": 2683,
+      "gzipBytes": 1141,
+      "imports": [
+        "index.html",
+        "_booking-keys-CMf-luKD.js"
+      ],
+      "dynamicImports": [],
+      "isEntry": false,
+      "isDynamicEntry": false
+    },
+    {
+      "source": "_booking-queries-Db9mJMOV.js",
+      "file": "assets/booking-queries-Db9mJMOV.js",
+      "bytes": 1266,
+      "gzipBytes": 643,
+      "imports": [
+        "_useQuery-C2BmC7jQ.js",
+        "index.html",
+        "_booking-keys-CMf-luKD.js"
+      ],
+      "dynamicImports": [],
+      "isEntry": false,
+      "isDynamicEntry": false
+    },
+    {
+      "source": "_use-booking-selection-Bk3hoI65.js",
+      "file": "assets/use-booking-selection-Bk3hoI65.js",
+      "bytes": 672,
+      "gzipBytes": 494,
+      "imports": [
+        "_SafeImage-BY6oAheI.js",
+        "index.html",
+        "_booking-queries-Db9mJMOV.js"
+      ],
+      "dynamicImports": [],
+      "isEntry": false,
+      "isDynamicEntry": false
+    },
+    {
+      "source": "_useQuery-C2BmC7jQ.js",
+      "file": "assets/useQuery-C2BmC7jQ.js",
+      "bytes": 7932,
+      "gzipBytes": 2895,
+      "imports": [
+        "index.html"
+      ],
+      "dynamicImports": [],
+      "isEntry": false,
+      "isDynamicEntry": false
+    },
+    {
+      "source": "index.html",
+      "file": "assets/index-DeA8X8h4.js",
+      "bytes": 267964,
+      "gzipBytes": 84018,
+      "imports": [],
+      "dynamicImports": [
+        "src/features/tours/pages/HomePage.tsx",
+        "src/features/tours/pages/TourListPage.tsx",
+        "src/features/tours/pages/TourDetailPage.tsx",
+        "src/features/booking/pages/CheckoutPage.tsx",
+        "src/features/booking/pages/BookingLookupPage.tsx",
+        "src/features/booking/pages/BookingResultPage.tsx",
+        "src/shared/pages/PoliciesPage.tsx"
+      ],
+      "isEntry": true,
+      "isDynamicEntry": false
+    },
+    {
+      "source": "src/features/booking/pages/BookingLookupPage.tsx",
+      "file": "assets/BookingLookupPage-C-vEI9hM.js",
+      "bytes": 1840,
+      "gzipBytes": 996,
+      "imports": [
+        "_booking-mutations-D01r6fGD.js",
+        "index.html"
+      ],
+      "dynamicImports": [],
+      "isEntry": false,
+      "isDynamicEntry": true
+    },
+    {
+      "source": "src/features/booking/pages/BookingResultPage.tsx",
+      "file": "assets/BookingResultPage-ZQyyQLcw.js",
+      "bytes": 2680,
+      "gzipBytes": 1191,
+      "imports": [
+        "index.html",
+        "_booking-queries-Db9mJMOV.js"
+      ],
+      "dynamicImports": [],
+      "isEntry": false,
+      "isDynamicEntry": true
+    },
+    {
+      "source": "src/features/booking/pages/CheckoutPage.tsx",
+      "file": "assets/CheckoutPage-D-G13hJ-.js",
+      "bytes": 9120,
+      "gzipBytes": 3652,
+      "imports": [
+        "_booking-mutations-D01r6fGD.js",
+        "_SafeImage-BY6oAheI.js",
+        "index.html",
+        "_booking-queries-Db9mJMOV.js",
+        "_use-booking-selection-Bk3hoI65.js"
+      ],
+      "dynamicImports": [],
+      "isEntry": false,
+      "isDynamicEntry": true
+    },
+    {
+      "source": "src/features/tours/pages/HomePage.tsx",
+      "file": "assets/HomePage-BpAYKHG9.js",
+      "bytes": 2984,
+      "gzipBytes": 1390,
+      "imports": [
+        "_SafeImage-BY6oAheI.js",
+        "index.html",
+        "_TourSearch-r1fu_ERE.js",
+        "_TourCard-DCTO4rq2.js"
+      ],
+      "dynamicImports": [],
+      "isEntry": false,
+      "isDynamicEntry": true
+    },
+    {
+      "source": "src/features/tours/pages/TourDetailPage.tsx",
+      "file": "assets/TourDetailPage-zME7xL2d.js",
+      "bytes": 17190,
+      "gzipBytes": 6009,
+      "imports": [
+        "_SafeImage-BY6oAheI.js",
+        "index.html",
+        "_booking-queries-Db9mJMOV.js",
+        "_use-booking-selection-Bk3hoI65.js",
+        "_TourCard-DCTO4rq2.js"
+      ],
+      "dynamicImports": [],
+      "isEntry": false,
+      "isDynamicEntry": true
+    },
+    {
+      "source": "src/features/tours/pages/TourListPage.tsx",
+      "file": "assets/TourListPage-Ey1Umthb.js",
+      "bytes": 5457,
+      "gzipBytes": 2119,
+      "imports": [
+        "_SafeImage-BY6oAheI.js",
+        "index.html",
+        "_TourSearch-r1fu_ERE.js",
+        "_TourCard-DCTO4rq2.js"
+      ],
+      "dynamicImports": [],
+      "isEntry": false,
+      "isDynamicEntry": true
+    },
+    {
+      "source": "src/shared/pages/PoliciesPage.tsx",
+      "file": "assets/PoliciesPage-BSc3l2fB.js",
+      "bytes": 1564,
+      "gzipBytes": 946,
+      "imports": [
+        "index.html"
+      ],
+      "dynamicImports": [],
+      "isEntry": false,
+      "isDynamicEntry": true
+    }
+  ]
+}

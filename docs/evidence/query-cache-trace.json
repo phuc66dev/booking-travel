@@ -1,0 +1,316 @@
+{
+  "recordedAt": "2026-10-21T17:17:59.428Z",
+  "scenario": "Equivalent normalized search reuses cache; successful mutation invalidates and refetches active exact quote; catalog remains cached",
+  "catalogCalls": 1,
+  "quoteCalls": 2,
+  "trace": [
+    {
+      "event": "added",
+      "key": [
+        "booking",
+        "quote",
+        {
+          "tourId": "t0",
+          "departureId": "t0-2026-10-23",
+          "packageId": "p3",
+          "adults": 2,
+          "children": 0,
+          "infants": 0,
+          "voucherCode": "",
+          "paymentRatio": 100
+        }
+      ],
+      "status": "pending",
+      "fetchStatus": "idle",
+      "invalidated": false
+    },
+    {
+      "event": "observerResultsUpdated",
+      "key": [
+        "booking",
+        "quote",
+        {
+          "tourId": "t0",
+          "departureId": "t0-2026-10-23",
+          "packageId": "p3",
+          "adults": 2,
+          "children": 0,
+          "infants": 0,
+          "voucherCode": "",
+          "paymentRatio": 100
+        }
+      ],
+      "status": "pending",
+      "fetchStatus": "idle",
+      "invalidated": false
+    },
+    {
+      "event": "observerAdded",
+      "key": [
+        "booking",
+        "quote",
+        {
+          "tourId": "t0",
+          "departureId": "t0-2026-10-23",
+          "packageId": "p3",
+          "adults": 2,
+          "children": 0,
+          "infants": 0,
+          "voucherCode": "",
+          "paymentRatio": 100
+        }
+      ],
+      "status": "pending",
+      "fetchStatus": "idle",
+      "invalidated": false
+    },
+    {
+      "event": "observerResultsUpdated",
+      "key": [
+        "booking",
+        "quote",
+        {
+          "tourId": "t0",
+          "departureId": "t0-2026-10-23",
+          "packageId": "p3",
+          "adults": 2,
+          "children": 0,
+          "infants": 0,
+          "voucherCode": "",
+          "paymentRatio": 100
+        }
+      ],
+      "status": "pending",
+      "fetchStatus": "fetching",
+      "invalidated": false
+    },
+    {
+      "event": "updated",
+      "key": [
+        "booking",
+        "quote",
+        {
+          "tourId": "t0",
+          "departureId": "t0-2026-10-23",
+          "packageId": "p3",
+          "adults": 2,
+          "children": 0,
+          "infants": 0,
+          "voucherCode": "",
+          "paymentRatio": 100
+        }
+      ],
+      "status": "pending",
+      "fetchStatus": "fetching",
+      "invalidated": false
+    },
+    {
+      "event": "added",
+      "key": [
+        "tours",
+        "list",
+        {
+          "q": "can tho",
+          "destination": "",
+          "page": 1,
+          "pageSize": 6
+        }
+      ],
+      "status": "pending",
+      "fetchStatus": "idle",
+      "invalidated": false
+    },
+    {
+      "event": "updated",
+      "key": [
+        "tours",
+        "list",
+        {
+          "q": "can tho",
+          "destination": "",
+          "page": 1,
+          "pageSize": 6
+        }
+      ],
+      "status": "pending",
+      "fetchStatus": "fetching",
+      "invalidated": false
+    },
+    {
+      "event": "updated",
+      "key": [
+        "tours",
+        "list",
+        {
+          "q": "can tho",
+          "destination": "",
+          "page": 1,
+          "pageSize": 6
+        }
+      ],
+      "status": "success",
+      "fetchStatus": "idle",
+      "invalidated": false
+    },
+    {
+      "event": "observerResultsUpdated",
+      "key": [
+        "booking",
+        "quote",
+        {
+          "tourId": "t0",
+          "departureId": "t0-2026-10-23",
+          "packageId": "p3",
+          "adults": 2,
+          "children": 0,
+          "infants": 0,
+          "voucherCode": "",
+          "paymentRatio": 100
+        }
+      ],
+      "status": "success",
+      "fetchStatus": "idle",
+      "invalidated": false
+    },
+    {
+      "event": "updated",
+      "key": [
+        "booking",
+        "quote",
+        {
+          "tourId": "t0",
+          "departureId": "t0-2026-10-23",
+          "packageId": "p3",
+          "adults": 2,
+          "children": 0,
+          "infants": 0,
+          "voucherCode": "",
+          "paymentRatio": 100
+        }
+      ],
+      "status": "success",
+      "fetchStatus": "idle",
+      "invalidated": false
+    },
+    {
+      "event": "observerResultsUpdated",
+      "key": [
+        "booking",
+        "quote",
+        {
+          "tourId": "t0",
+          "departureId": "t0-2026-10-23",
+          "packageId": "p3",
+          "adults": 2,
+          "children": 0,
+          "infants": 0,
+          "voucherCode": "",
+          "paymentRatio": 100
+        }
+      ],
+      "status": "success",
+      "fetchStatus": "idle",
+      "invalidated": true
+    },
+    {
+      "event": "updated",
+      "key": [
+        "booking",
+        "quote",
+        {
+          "tourId": "t0",
+          "departureId": "t0-2026-10-23",
+          "packageId": "p3",
+          "adults": 2,
+          "children": 0,
+          "infants": 0,
+          "voucherCode": "",
+          "paymentRatio": 100
+        }
+      ],
+      "status": "success",
+      "fetchStatus": "idle",
+      "invalidated": true
+    },
+    {
+      "event": "observerResultsUpdated",
+      "key": [
+        "booking",
+        "quote",
+        {
+          "tourId": "t0",
+          "departureId": "t0-2026-10-23",
+          "packageId": "p3",
+          "adults": 2,
+          "children": 0,
+          "infants": 0,
+          "voucherCode": "",
+          "paymentRatio": 100
+        }
+      ],
+      "status": "success",
+      "fetchStatus": "fetching",
+      "invalidated": true
+    },
+    {
+      "event": "updated",
+      "key": [
+        "booking",
+        "quote",
+        {
+          "tourId": "t0",
+          "departureId": "t0-2026-10-23",
+          "packageId": "p3",
+          "adults": 2,
+          "children": 0,
+          "infants": 0,
+          "voucherCode": "",
+          "paymentRatio": 100
+        }
+      ],
+      "status": "success",
+      "fetchStatus": "fetching",
+      "invalidated": true
+    },
+    {
+      "event": "observerResultsUpdated",
+      "key": [
+        "booking",
+        "quote",
+        {
+          "tourId": "t0",
+          "departureId": "t0-2026-10-23",
+          "packageId": "p3",
+          "adults": 2,
+          "children": 0,
+          "infants": 0,
+          "voucherCode": "",
+          "paymentRatio": 100
+        }
+      ],
+      "status": "success",
+      "fetchStatus": "idle",
+      "invalidated": false
+    },
+    {
+      "event": "updated",
+      "key": [
+        "booking",
+        "quote",
+        {
+          "tourId": "t0",
+          "departureId": "t0-2026-10-23",
+          "packageId": "p3",
+          "adults": 2,
+          "children": 0,
+          "infants": 0,
+          "voucherCode": "",
+          "paymentRatio": 100
+        }
+      ],
+      "status": "success",
+      "fetchStatus": "idle",
+      "invalidated": false
+    }
+  ]
+}

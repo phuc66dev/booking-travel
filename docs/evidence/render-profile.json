@@ -1,0 +1,402 @@
+{
+  "recordedAt": "2026-10-21T17:23:45.461Z",
+  "method": "React Profiler, Chromium, development, StrictMode; deltas after async data settled",
+  "runs": [
+    {
+      "mode": "baseline",
+      "typedCharacters": 18,
+      "summaryCommits": 18,
+      "contactCommits": 18,
+      "summaryActualDurationMs": 10.29999989271164,
+      "samples": [
+        {
+          "id": "ContactForm",
+          "phase": "update",
+          "actualDuration": 0,
+          "baseDuration": 0,
+          "commitTime": 1344.199999988079
+        },
+        {
+          "id": "BookingSummary",
+          "phase": "update",
+          "actualDuration": 0.7000000476837158,
+          "baseDuration": 0.6000000238418579,
+          "commitTime": 1344.199999988079
+        },
+        {
+          "id": "ContactForm",
+          "phase": "update",
+          "actualDuration": 0.09999996423721313,
+          "baseDuration": 0.09999996423721313,
+          "commitTime": 1374.1000000238419
+        },
+        {
+          "id": "BookingSummary",
+          "phase": "update",
+          "actualDuration": 0.699999988079071,
+          "baseDuration": 0.7999999523162842,
+          "commitTime": 1374.1000000238419
+        },
+        {
+          "id": "ContactForm",
+          "phase": "update",
+          "actualDuration": 0.09999996423721313,
+          "baseDuration": 0.09999996423721313,
+          "commitTime": 1401.300000011921
+        },
+        {
+          "id": "BookingSummary",
+          "phase": "update",
+          "actualDuration": 0.2999999523162842,
+          "baseDuration": 0.3999999165534973,
+          "commitTime": 1401.300000011921
+        },
+        {
+          "id": "ContactForm",
+          "phase": "update",
+          "actualDuration": 0.20000004768371582,
+          "baseDuration": 0.20000004768371582,
+          "commitTime": 1429.699999988079
+        },
+        {
+          "id": "BookingSummary",
+          "phase": "update",
+          "actualDuration": 0.40000003576278687,
+          "baseDuration": 0.5,
+          "commitTime": 1429.699999988079
+        },
+        {
+          "id": "ContactForm",
+          "phase": "update",
+          "actualDuration": 0,
+          "baseDuration": 0,
+          "commitTime": 1453.9000000357628
+        },
+        {
+          "id": "BookingSummary",
+          "phase": "update",
+          "actualDuration": 0.800000011920929,
+          "baseDuration": 0.5999999642372131,
+          "commitTime": 1453.9000000357628
+        },
+        {
+          "id": "ContactForm",
+          "phase": "update",
+          "actualDuration": 0.19999998807907104,
+          "baseDuration": 0.19999998807907104,
+          "commitTime": 1482.300000011921
+        },
+        {
+          "id": "BookingSummary",
+          "phase": "update",
+          "actualDuration": 0.3999999761581421,
+          "baseDuration": 0.4999999403953552,
+          "commitTime": 1482.300000011921
+        },
+        {
+          "id": "ContactForm",
+          "phase": "update",
+          "actualDuration": 0.09999996423721313,
+          "baseDuration": 0.09999996423721313,
+          "commitTime": 1509.300000011921
+        },
+        {
+          "id": "BookingSummary",
+          "phase": "update",
+          "actualDuration": 0.8999999761581421,
+          "baseDuration": 0.8999999761581421,
+          "commitTime": 1509.300000011921
+        },
+        {
+          "id": "ContactForm",
+          "phase": "update",
+          "actualDuration": 0,
+          "baseDuration": 0,
+          "commitTime": 1544.6000000238419
+        },
+        {
+          "id": "BookingSummary",
+          "phase": "update",
+          "actualDuration": 0.3999999761581421,
+          "baseDuration": 0.4999999403953552,
+          "commitTime": 1544.6000000238419
+        },
+        {
+          "id": "ContactForm",
+          "phase": "update",
+          "actualDuration": 0.09999996423721313,
+          "baseDuration": 0,
+          "commitTime": 1579.6000000238419
+        },
+        {
+          "id": "BookingSummary",
+          "phase": "update",
+          "actualDuration": 0.5999999642372131,
+          "baseDuration": 0.6999999284744263,
+          "commitTime": 1579.6000000238419
+        },
+        {
+          "id": "ContactForm",
+          "phase": "update",
+          "actualDuration": 0.09999996423721313,
+          "baseDuration": 0.09999996423721313,
+          "commitTime": 1606.1000000238419
+        },
+        {
+          "id": "BookingSummary",
+          "phase": "update",
+          "actualDuration": 0.5,
+          "baseDuration": 0.4999999403953552,
+          "commitTime": 1606.1000000238419
+        },
+        {
+          "id": "ContactForm",
+          "phase": "update",
+          "actualDuration": 0,
+          "baseDuration": 0,
+          "commitTime": 1632.6000000238419
+        },
+        {
+          "id": "BookingSummary",
+          "phase": "update",
+          "actualDuration": 0.5999999642372131,
+          "baseDuration": 0.6999999284744263,
+          "commitTime": 1632.6000000238419
+        },
+        {
+          "id": "ContactForm",
+          "phase": "update",
+          "actualDuration": 0.10000002384185791,
+          "baseDuration": 0.10000002384185791,
+          "commitTime": 1654.1000000238419
+        },
+        {
+          "id": "BookingSummary",
+          "phase": "update",
+          "actualDuration": 0.699999988079071,
+          "baseDuration": 0.699999988079071,
+          "commitTime": 1654.1000000238419
+        },
+        {
+          "id": "ContactForm",
+          "phase": "update",
+          "actualDuration": 0.10000002384185791,
+          "baseDuration": 0.10000002384185791,
+          "commitTime": 1681.9000000357628
+        },
+        {
+          "id": "BookingSummary",
+          "phase": "update",
+          "actualDuration": 0.5,
+          "baseDuration": 0.3999999165534973,
+          "commitTime": 1681.9000000357628
+        },
+        {
+          "id": "ContactForm",
+          "phase": "update",
+          "actualDuration": 0.10000002384185791,
+          "baseDuration": 0.10000002384185791,
+          "commitTime": 1707.4000000357628
+        },
+        {
+          "id": "BookingSummary",
+          "phase": "update",
+          "actualDuration": 0.40000003576278687,
+          "baseDuration": 0.5,
+          "commitTime": 1707.4000000357628
+        },
+        {
+          "id": "ContactForm",
+          "phase": "update",
+          "actualDuration": 0.10000002384185791,
+          "baseDuration": 0.10000002384185791,
+          "commitTime": 1728.699999988079
+        },
+        {
+          "id": "BookingSummary",
+          "phase": "update",
+          "actualDuration": 0.3999999761581421,
+          "baseDuration": 0.4999999403953552,
+          "commitTime": 1728.699999988079
+        },
+        {
+          "id": "ContactForm",
+          "phase": "update",
+          "actualDuration": 0.19999998807907104,
+          "baseDuration": 0.09999996423721313,
+          "commitTime": 1754.9000000357628
+        },
+        {
+          "id": "BookingSummary",
+          "phase": "update",
+          "actualDuration": 0.5,
+          "baseDuration": 0.5999999642372131,
+          "commitTime": 1754.9000000357628
+        },
+        {
+          "id": "ContactForm",
+          "phase": "update",
+          "actualDuration": 0,
+          "baseDuration": 0,
+          "commitTime": 1777.300000011921
+        },
+        {
+          "id": "BookingSummary",
+          "phase": "update",
+          "actualDuration": 0.30000001192092896,
+          "baseDuration": 0.3999999761581421,
+          "commitTime": 1777.300000011921
+        },
+        {
+          "id": "ContactForm",
+          "phase": "update",
+          "actualDuration": 0,
+          "baseDuration": 0,
+          "commitTime": 1800.9000000357628
+        },
+        {
+          "id": "BookingSummary",
+          "phase": "update",
+          "actualDuration": 1.199999988079071,
+          "baseDuration": 1.1999999284744263,
+          "commitTime": 1800.9000000357628
+        }
+      ]
+    },
+    {
+      "mode": "optimized",
+      "typedCharacters": 18,
+      "summaryCommits": 0,
+      "contactCommits": 18,
+      "summaryActualDurationMs": 0,
+      "samples": [
+        {
+          "id": "ContactForm",
+          "phase": "update",
+          "actualDuration": 0.10000002384185791,
+          "baseDuration": 0.10000002384185791,
+          "commitTime": 1327.300000011921
+        },
+        {
+          "id": "ContactForm",
+          "phase": "update",
+          "actualDuration": 0.10000002384185791,
+          "baseDuration": 0.10000002384185791,
+          "commitTime": 1359.8999999761581
+        },
+        {
+          "id": "ContactForm",
+          "phase": "update",
+          "actualDuration": 0,
+          "baseDuration": 0,
+          "commitTime": 1376.800000011921
+        },
+        {
+          "id": "ContactForm",
+          "phase": "update",
+          "actualDuration": 0,
+          "baseDuration": 0,
+          "commitTime": 1394.5999999642372
+        },
+        {
+          "id": "ContactForm",
+          "phase": "update",
+          "actualDuration": 0.10000002384185791,
+          "baseDuration": 0.10000002384185791,
+          "commitTime": 1412
+        },
+        {
+          "id": "ContactForm",
+          "phase": "update",
+          "actualDuration": 0,
+          "baseDuration": 0,
+          "commitTime": 1429.0999999642372
+        },
+        {
+          "id": "ContactForm",
+          "phase": "update",
+          "actualDuration": 0.09999996423721313,
+          "baseDuration": 0.09999996423721313,
+          "commitTime": 1444.8999999761581
+        },
+        {
+          "id": "ContactForm",
+          "phase": "update",
+          "actualDuration": 0,
+          "baseDuration": 0,
+          "commitTime": 1461.5999999642372
+        },
+        {
+          "id": "ContactForm",
+          "phase": "update",
+          "actualDuration": 0.30000001192092896,
+          "baseDuration": 0.30000001192092896,
+          "commitTime": 1483.5
+        },
+        {
+          "id": "ContactForm",
+          "phase": "update",
+          "actualDuration": 0,
+          "baseDuration": 0,
+          "commitTime": 1504.5999999642372
+        },
+        {
+          "id": "ContactForm",
+          "phase": "update",
+          "actualDuration": 0,
+          "baseDuration": 0,
+          "commitTime": 1522
+        },
+        {
+          "id": "ContactForm",
+          "phase": "update",
+          "actualDuration": 0,
+          "baseDuration": 0,
+          "commitTime": 1537.5999999642372
+        },
+        {
+          "id": "ContactForm",
+          "phase": "update",
+          "actualDuration": 0.10000002384185791,
+          "baseDuration": 0.10000002384185791,
+          "commitTime": 1553.300000011921
+        },
+        {
+          "id": "ContactForm",
+          "phase": "update",
+          "actualDuration": 0,
+          "baseDuration": 0,
+          "commitTime": 1569.300000011921
+        },
+        {
+          "id": "ContactForm",
+          "phase": "update",
+          "actualDuration": 0.10000002384185791,
+          "baseDuration": 0.10000002384185791,
+          "commitTime": 1596.3999999761581
+        },
+        {
+          "id": "ContactForm",
+          "phase": "update",
+          "actualDuration": 0.09999996423721313,
+          "baseDuration": 0,
+          "commitTime": 1621.5
+        },
+        {
+          "id": "ContactForm",
+          "phase": "update",
+          "actualDuration": 0.10000002384185791,
+          "baseDuration": 0.10000002384185791,
+          "commitTime": 1644.3999999761581
+        },
+        {
+          "id": "ContactForm",
+          "phase": "update",
+          "actualDuration": 0,
+          "baseDuration": 0,
+          "commitTime": 1670.3999999761581
+        }
+      ]
+    }
+  ]
+}

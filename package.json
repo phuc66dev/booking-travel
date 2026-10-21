@@ -7,14 +7,22 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "node --experimental-strip-types --test tests/*.test.ts",
+    "typecheck": "tsc -b --pretty false && tsc -p tsconfig.checks.json --pretty false",
+    "test:e2e": "playwright test",
+    "test:e2e:production": "node scripts/test-production.mjs",
+    "build:report": "npm run build && node scripts/analyze-build.mjs",
+    "evidence:query": "node --experimental-strip-types scripts/query-evidence.mjs"
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.104.5",
     "react": "^19.2.8",
     "react-dom": "^19.2.8"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
+    "@playwright/test": "^1.64.1",
     "@types/node": "^24.13.3",
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.7",
@@ -23,8 +31,9 @@
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-react-refresh": "^0.5.6",
     "globals": "^17.12.0",
+    "prettier": "^3.9.10",
     "typescript": "~6.0.2",
     "typescript-eslint": "^8.69.0",
-    "vite": "^8.3.0"
+    "vite": "~8.3.5"
   }
 }

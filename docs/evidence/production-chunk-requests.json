@@ -1,0 +1,25 @@
+{
+  "recordedAt": "2026-10-21T17:31:22.206Z",
+  "startupScripts": [
+    "http://127.0.0.1:4173/assets/index-DeA8X8h4.js",
+    "http://127.0.0.1:4173/assets/HomePage-BpAYKHG9.js",
+    "http://127.0.0.1:4173/assets/SafeImage-BY6oAheI.js",
+    "http://127.0.0.1:4173/assets/useQuery-C2BmC7jQ.js",
+    "http://127.0.0.1:4173/assets/TourSearch-r1fu_ERE.js",
+    "http://127.0.0.1:4173/assets/TourCard-DCTO4rq2.js"
+  ],
+  "afterCheckout": [
+    "http://127.0.0.1:4173/assets/index-DeA8X8h4.js",
+    "http://127.0.0.1:4173/assets/HomePage-BpAYKHG9.js",
+    "http://127.0.0.1:4173/assets/SafeImage-BY6oAheI.js",
+    "http://127.0.0.1:4173/assets/useQuery-C2BmC7jQ.js",
+    "http://127.0.0.1:4173/assets/TourSearch-r1fu_ERE.js",
+    "http://127.0.0.1:4173/assets/TourCard-DCTO4rq2.js",
+    "http://127.0.0.1:4173/assets/TourDetailPage-zME7xL2d.js",
+    "http://127.0.0.1:4173/assets/booking-queries-Db9mJMOV.js",
+    "http://127.0.0.1:4173/assets/booking-keys-CMf-luKD.js",
+    "http://127.0.0.1:4173/assets/use-booking-selection-Bk3hoI65.js",
+    "http://127.0.0.1:4173/assets/CheckoutPage-D-G13hJ-.js",
+    "http://127.0.0.1:4173/assets/booking-mutations-D01r6fGD.js"
+  ]
+}
