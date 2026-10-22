@@ -56,6 +56,31 @@ test("home has one main landmark containing its H1 and no missing-key warnings",
   expect(warnings).toEqual([]);
 });
 
+test("development UI panel demonstrates boundary isolation and Suspense fallback", async ({
+  page,
+}) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "Kiểm thử UI" }).click();
+
+  await page.getByRole("button", { name: "Gây lỗi kiểm thử" }).click();
+  await expect(
+    page.getByRole("alert").getByText("Lỗi đã được boundary chặn"),
+  ).toBeVisible();
+  await expect(page.locator("header nav")).toBeVisible();
+  await expect(page.locator("main h1")).toBeVisible();
+  await page.getByRole("button", { name: "Khôi phục vùng kiểm thử" }).click();
+  await expect(
+    page.getByRole("button", { name: "Gây lỗi kiểm thử" }),
+  ).toBeVisible();
+
+  await page.getByRole("button", { name: "Mô phỏng tải chậm" }).click();
+  await expect(page.getByText("Đang tải nội dung kiểm thử…")).toBeVisible();
+  await expect(
+    page.getByRole("status").getByText("Suspense đã tải xong nội dung kiểm thử."),
+  ).toBeVisible();
+  await expect(page.locator("main h1")).toBeVisible();
+});
+
 test("complete booking, voucher/deposit, lookup and correct unpaid status", async ({
   page,
 }) => {
