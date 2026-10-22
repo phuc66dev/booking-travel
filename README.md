@@ -26,7 +26,7 @@ Lần đầu chạy browser: `npx playwright install chromium`. Build trước k
 
 Host production cần rewrite các URL ứng dụng về `index.html` vì dự án dùng SPA routing. Vite dev/preview có sẵn fallback này.
 
-Khi chạy `npm run dev`, mở nút **Kiểm thử UI** ở góc dưới bên phải để kích hoạt lỗi render con (xác nhận Error Boundary cô lập lỗi) và Suspense tải chậm 1,8 giây. Bảng kiểm thử này chỉ có trong development; không xuất hiện trong bản production.
+Khi chạy `npm run dev`, mở nút **Kiểm thử UI** ở góc dưới bên phải. Có thể bật/tắt boundary hoặc Suspense cục bộ để so sánh với fallback bao ngoài: khi không có lớp cục bộ, lỗi/trạng thái chờ lan tới lớp bao ngoài nhưng phần ứng dụng khác vẫn hoạt động. Suspense tải chậm 1,8 giây. Bảng kiểm thử này chỉ có trong development; không xuất hiện trong bản production. E2E bao phủ cả hai chế độ.
 
 ## Các trang
 

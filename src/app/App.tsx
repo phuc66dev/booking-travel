@@ -25,8 +25,21 @@ const BookingResultPage = lazy(
 );
 const PoliciesPage = lazy(() => import("../shared/pages/PoliciesPage.tsx"));
 
-function SimulatedRenderError(): never {
-  throw new Error("Lỗi kiểm thử được tạo có chủ đích.");
+function ErrorTestContent({
+  shouldThrow,
+  onTrigger,
+}: {
+  shouldThrow: boolean;
+  onTrigger: () => void;
+}) {
+  if (shouldThrow) {
+    throw new Error("Lỗi kiểm thử được tạo có chủ đích.");
+  }
+  return (
+    <button className="outline" type="button" onClick={onTrigger}>
+      Gây lỗi kiểm thử
+    </button>
+  );
 }
 
 function DelayedContent({ result }: { result: Promise<string> }) {
@@ -36,10 +49,12 @@ function DelayedContent({ result }: { result: Promise<string> }) {
 function UiTestPanel() {
   const [open, setOpen] = useState(false);
   const [triggerError, setTriggerError] = useState(false);
-  const [boundaryKey, setBoundaryKey] = useState(0);
+  const [hasErrorBoundary, setHasErrorBoundary] = useState(true);
+  const [errorBoundaryKey, setErrorBoundaryKey] = useState(0);
   const [delayedResult, setDelayedResult] = useState<Promise<string> | null>(
     null,
   );
+  const [hasLocalSuspense, setHasLocalSuspense] = useState(true);
 
   function simulateDelay() {
     setDelayedResult(
@@ -54,8 +69,85 @@ function UiTestPanel() {
 
   function resetErrorTest() {
     setTriggerError(false);
-    setBoundaryKey((key) => key + 1);
+    setErrorBoundaryKey((key) => key + 1);
   }
+
+  const errorTest = (
+    <ErrorTestContent
+      shouldThrow={triggerError}
+      onTrigger={() => setTriggerError(true)}
+    />
+  );
+  const errorTestWithOptionalBoundary = hasErrorBoundary ? (
+    <PageBoundary
+      key={`local-${errorBoundaryKey}`}
+      fallback={
+        <div className="ui-test-error" role="alert">
+          <strong>Lỗi đã được boundary cục bộ chặn</strong>
+          <p>Trang và các vùng còn lại vẫn hoạt động.</p>
+          <button
+            className="outline"
+            type="button"
+            onClick={resetErrorTest}
+          >
+            Khôi phục vùng kiểm thử
+          </button>
+        </div>
+      }
+    >
+      {errorTest}
+    </PageBoundary>
+  ) : (
+    errorTest
+  );
+
+  const errorTestWithOuterBoundary = (
+    <PageBoundary
+      key={`outer-${errorBoundaryKey}`}
+      fallback={
+        <div className="ui-test-error" role="alert">
+          <strong>
+            Lỗi lan tới boundary bao ngoài (không có boundary cục bộ)
+          </strong>
+          <p>Ứng dụng chính vẫn hoạt động nhờ boundary của trang.</p>
+          <button
+            className="outline"
+            type="button"
+            onClick={resetErrorTest}
+          >
+            Khôi phục phép thử lỗi
+          </button>
+        </div>
+      }
+    >
+      {errorTestWithOptionalBoundary}
+    </PageBoundary>
+  );
+
+  const suspenseTest = delayedResult ? (
+    <DelayedContent result={delayedResult} />
+  ) : (
+    <button
+      className="outline"
+      type="button"
+      onClick={simulateDelay}
+    >
+      Mô phỏng tải chậm
+    </button>
+  );
+  const suspenseTestWithOptionalBoundary = hasLocalSuspense ? (
+    <Suspense
+      fallback={
+        <div className="ui-test-loading" role="status" aria-busy="true">
+          Đang tải trong Suspense cục bộ…
+        </div>
+      }
+    >
+      {suspenseTest}
+    </Suspense>
+  ) : (
+    suspenseTest
+  );
 
   return (
     <aside className="ui-test-panel">
@@ -74,61 +166,53 @@ function UiTestPanel() {
           <section>
             <h3>Error Boundary</h3>
             <p>
-              Tạo lỗi render trong vùng riêng. Boundary chặn lỗi tại đây; trang
-              và điều hướng vẫn dùng được.
+              So sánh boundary cục bộ với boundary bao ngoài của trang.
             </p>
-            <PageBoundary
-              key={boundaryKey}
-              fallback={
-                <div className="ui-test-error" role="alert">
-                  <strong>Lỗi đã được boundary chặn</strong>
-                  <p>Phần còn lại của ứng dụng vẫn hoạt động.</p>
-                  <button
-                    className="outline"
-                    type="button"
-                    onClick={resetErrorTest}
-                  >
-                    Khôi phục vùng kiểm thử
-                  </button>
-                </div>
-              }
+            <button
+              className="outline ui-test-mode"
+              type="button"
+              aria-pressed={hasErrorBoundary}
+              onClick={() => {
+                resetErrorTest();
+                setHasErrorBoundary((value) => !value);
+              }}
             >
-              {triggerError ? (
-                <SimulatedRenderError />
-              ) : (
-                <button
-                  className="outline"
-                  type="button"
-                  onClick={() => setTriggerError(true)}
-                >
-                  Gây lỗi kiểm thử
-                </button>
-              )}
-            </PageBoundary>
+              Boundary cục bộ: {hasErrorBoundary ? "Có" : "Không"}
+            </button>
+            {errorTestWithOuterBoundary}
           </section>
           <section>
             <h3>Suspense</h3>
             <p>
-              Nội dung demo chờ 1,8 giây; fallback xuất hiện trong lúc chờ.
+              So sánh fallback cục bộ với fallback bao ngoài khi nội dung chờ
+              1,8 giây.
             </p>
+            <button
+              className="outline ui-test-mode"
+              type="button"
+              aria-pressed={hasLocalSuspense}
+              onClick={() => {
+                setDelayedResult(null);
+                setHasLocalSuspense((value) => !value);
+              }}
+            >
+              Suspense cục bộ: {hasLocalSuspense ? "Có" : "Không"}
+            </button>
             <Suspense
               fallback={
                 <div className="ui-test-loading" role="status" aria-busy="true">
-                  Đang tải nội dung kiểm thử…
+                  Đang tải ở Suspense bao ngoài (không có Suspense cục bộ)…
+                  <button
+                    className="outline"
+                    type="button"
+                    onClick={() => setDelayedResult(null)}
+                  >
+                    Đặt lại phép thử tải chậm
+                  </button>
                 </div>
               }
             >
-              {delayedResult ? (
-                <DelayedContent result={delayedResult} />
-              ) : (
-                <button
-                  className="outline"
-                  type="button"
-                  onClick={simulateDelay}
-                >
-                  Mô phỏng tải chậm
-                </button>
-              )}
+              {suspenseTestWithOptionalBoundary}
             </Suspense>
             {delayedResult && (
               <button
