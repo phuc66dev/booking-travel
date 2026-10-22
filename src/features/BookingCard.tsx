@@ -5,7 +5,7 @@ import { money, isOpen } from "./booking/domain/pricing.ts";
 import type { quote } from "./booking/domain/pricing.ts";
 import type { Draft } from "./booking/api/booking-service.ts";
 import { getPrice } from "./booking/api/booking-service.ts";
-import { PriceBreakdown } from "../components/PriceBreakdown";
+import { PriceBreakdown } from "../components/PriceBreakdown.tsx";
 type Departure = (typeof departures)[number];
 interface Props {
   scope: string;

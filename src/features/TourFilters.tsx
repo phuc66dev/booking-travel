@@ -1,8 +1,10 @@
 import { useRef } from "react";
 import { trapDialogFocus } from "../shared/lib/dialog-focus.ts";
+import type { TourFilterKey } from "./tours/types.ts";
+
 interface Props {
   params: URLSearchParams;
-  filter: (k: string, v: string) => void;
+  filter: (k: TourFilterKey, v: string) => void;
   clear: () => void;
 }
 export function TourFilters({ params, filter, clear }: Props) {
