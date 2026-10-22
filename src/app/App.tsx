@@ -46,7 +46,11 @@ function DelayedContent({ result }: { result: Promise<string> }) {
   return <p role="status">{use(result)}</p>;
 }
 
-function UiTestPanel() {
+function UiTestPanel({
+  onTriggerPageError,
+}: {
+  onTriggerPageError: () => void;
+}) {
   const [open, setOpen] = useState(false);
   const [triggerError, setTriggerError] = useState(false);
   const [hasErrorBoundary, setHasErrorBoundary] = useState(true);
@@ -72,11 +76,19 @@ function UiTestPanel() {
     setErrorBoundaryKey((key) => key + 1);
   }
 
-  const errorTest = (
+  const errorTest = hasErrorBoundary ? (
     <ErrorTestContent
       shouldThrow={triggerError}
       onTrigger={() => setTriggerError(true)}
     />
+  ) : (
+    <button
+      className="outline"
+      type="button"
+      onClick={onTriggerPageError}
+    >
+      Gây lỗi kiểm thử
+    </button>
   );
   const errorTestWithOptionalBoundary = hasErrorBoundary ? (
     <PageBoundary
@@ -99,29 +111,6 @@ function UiTestPanel() {
     </PageBoundary>
   ) : (
     errorTest
-  );
-
-  const errorTestWithOuterBoundary = (
-    <PageBoundary
-      key={`outer-${errorBoundaryKey}`}
-      fallback={
-        <div className="ui-test-error" role="alert">
-          <strong>
-            Lỗi lan tới boundary bao ngoài (không có boundary cục bộ)
-          </strong>
-          <p>Ứng dụng chính vẫn hoạt động nhờ boundary của trang.</p>
-          <button
-            className="outline"
-            type="button"
-            onClick={resetErrorTest}
-          >
-            Khôi phục phép thử lỗi
-          </button>
-        </div>
-      }
-    >
-      {errorTestWithOptionalBoundary}
-    </PageBoundary>
   );
 
   const suspenseTest = delayedResult ? (
@@ -179,7 +168,7 @@ function UiTestPanel() {
             >
               Boundary cục bộ: {hasErrorBoundary ? "Có" : "Không"}
             </button>
-            {errorTestWithOuterBoundary}
+            {errorTestWithOptionalBoundary}
           </section>
           <section>
             <h3>Suspense</h3>
@@ -232,6 +221,8 @@ function UiTestPanel() {
 
 export default function App() {
   const { pathname, navigate } = useAppRouter();
+  const [pageTestError, setPageTestError] = useState(false);
+  const [pageBoundaryKey, setPageBoundaryKey] = useState(0);
   const go = useCallback(
     (url: string) => {
       navigate(url);
@@ -262,14 +253,49 @@ export default function App() {
         </AppLink>
       </main>
     );
+  const pageContent = pageTestError ? (
+    <SimulatedPageError />
+  ) : (
+    page
+  );
   return (
     <>
       <SiteHeader path={pathname} go={go} />
-      <PageBoundary key={pathname}>
-        <Suspense fallback={<AsyncState />}>{page}</Suspense>
+      <PageBoundary
+        key={`${pathname}-${pageBoundaryKey}`}
+        fallback={
+          pageTestError ? (
+            <main className="container empty ui-test-page-fallback" role="alert">
+              <h1>Boundary của trang đã bắt lỗi</h1>
+              <p>
+                Không có boundary cục bộ nên toàn bộ nội dung trang đã được
+                thay bằng giao diện dự phòng. Header, footer và bảng kiểm thử
+                vẫn hoạt động.
+              </p>
+              <button
+                className="cta"
+                type="button"
+                onClick={() => {
+                  setPageTestError(false);
+                  setPageBoundaryKey((key) => key + 1);
+                }}
+              >
+                Khôi phục trang
+              </button>
+            </main>
+          ) : undefined
+        }
+      >
+        <Suspense fallback={<AsyncState />}>{pageContent}</Suspense>
       </PageBoundary>
       <SiteFooter />
-      {import.meta.env.DEV && <UiTestPanel />}
+      {import.meta.env.DEV && (
+        <UiTestPanel onTriggerPageError={() => setPageTestError(true)} />
+      )}
     </>
   );
+}
+
+function SimulatedPageError(): never {
+  throw new Error("Lỗi kiểm thử được tạo có chủ đích.");
 }

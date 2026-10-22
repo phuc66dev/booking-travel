@@ -76,12 +76,13 @@ test("development UI panel demonstrates boundary isolation and Suspense fallback
   await page.getByRole("button", { name: "Boundary cục bộ: Có" }).click();
   await page.getByRole("button", { name: "Gây lỗi kiểm thử" }).click();
   await expect(
-    page
-      .getByRole("alert")
-      .getByText("Lỗi lan tới boundary bao ngoài (không có boundary cục bộ)"),
+    page.getByRole("heading", { name: "Boundary của trang đã bắt lỗi" }),
   ).toBeVisible();
+  await expect(page.locator("main h1")).toHaveCount(1);
+  await expect(page.getByRole("heading", { name: "Hẹn nhau ở miền Tây" })).toHaveCount(0);
   await expect(page.locator("header nav")).toBeVisible();
-  await page.getByRole("button", { name: "Khôi phục phép thử lỗi" }).click();
+  await page.getByRole("button", { name: "Khôi phục trang" }).click();
+  await expect(page.getByRole("heading", { name: "Hẹn nhau ở miền Tây" })).toBeVisible();
   await page.getByRole("button", { name: "Boundary cục bộ: Không" }).click();
 
   await page.getByRole("button", { name: "Mô phỏng tải chậm" }).click();
