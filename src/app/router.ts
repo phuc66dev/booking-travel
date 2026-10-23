@@ -1,4 +1,5 @@
-import { useSyncExternalStore } from "react";
+import { useLocation, useNavigate } from "@tanstack/react-router";
+import { router } from "./routes.tsx";
 
 export interface AppLocation {
   pathname: string;
@@ -10,25 +11,12 @@ export function parseLocation(href: string): AppLocation {
   return { pathname: url.pathname, search: url.search };
 }
 
-function getHref() {
-  return typeof window === "undefined"
-    ? "/"
-    : `${window.location.pathname}${window.location.search}`;
-}
-
-function subscribe(callback: () => void) {
-  window.addEventListener("popstate", callback);
-  return () => window.removeEventListener("popstate", callback);
-}
-
 export function navigateTo(url: string) {
-  window.history.pushState({}, "", url);
-  window.dispatchEvent(new PopStateEvent("popstate"));
+  router.navigate({ href: url });
 }
 
 export function replaceTo(url: string) {
-  window.history.replaceState({}, "", url);
-  window.dispatchEvent(new PopStateEvent("popstate"));
+  router.navigate({ href: url, replace: true });
 }
 
 export function normalizePageSearch(
@@ -44,6 +32,12 @@ export function normalizePageSearch(
 }
 
 export function useAppRouter() {
-  const href = useSyncExternalStore(subscribe, getHref, () => "/");
-  return { ...parseLocation(href), navigate: navigateTo, replace: replaceTo };
+  const location = useLocation();
+  const navigate = useNavigate();
+  return {
+    pathname: location.pathname,
+    search: location.searchStr,
+    navigate: (url: string) => navigate({ href: url }),
+    replace: (url: string) => navigate({ href: url, replace: true }),
+  };
 }

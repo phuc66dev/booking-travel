@@ -1,6 +1,6 @@
 import { useCallback, useEffect, type ReactNode } from "react";
 import { TourFilters } from "../../TourFilters.tsx";
-import type { Tour } from "../types.ts";
+import type { Tour, TourFilterKey } from "../types.ts";
 import { useTourSearch } from "../hooks/use-tour-search.ts";
 import { useTours } from "../api/tour-queries.ts";
 import { normalizePageSearch, replaceTo } from "../../../app/router.ts";
@@ -65,7 +65,7 @@ interface TourListPageProps {
   total: number;
   page: number;
   pageSize: number;
-  filter: (key: string, value: string) => void;
+  filter: (key: TourFilterKey, value: string) => void;
   clear: () => void;
   searchForm: ReactNode;
   renderCard: (tour: Tour, index: number) => ReactNode;
@@ -98,7 +98,9 @@ export function TourListPage({
             </p>
             <select
               aria-label="Sắp xếp"
-              onChange={(event) => filter("sort", event.target.value)}
+              onChange={(event) =>
+                filter("sort", event.target.value)
+              }
               value={params.get("sort") || ""}
             >
               <option value="">Liên quan nhất</option>
@@ -113,7 +115,10 @@ export function TourListPage({
                 ([key, value]) => value && !["sort", "page"].includes(key),
               )
               .map(([key, value]) => (
-                <button key={key} onClick={() => filter(key, "")}>
+                <button
+                  key={key}
+                  onClick={() => filter(key as TourFilterKey, "")}
+                >
                   {value} ×
                 </button>
               ))}

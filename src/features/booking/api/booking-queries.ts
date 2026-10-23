@@ -1,17 +1,23 @@
-import { useQuery } from "@tanstack/react-query";
+import { queryOptions, useQuery } from "@tanstack/react-query";
 import { bookingKeys } from "./booking-keys.ts";
 import { adapter } from "./booking-service.ts";
 import type { Draft } from "../types.ts";
 
 export { bookingKeys } from "./booking-keys.ts";
 
-export function useBookingResult(bookingId: string) {
-  return useQuery({
+export function bookingResultQueryOptions(bookingId: string) {
+  return queryOptions({
     queryKey: ["bookings", "result", bookingId],
     queryFn: async () => adapter.getBooking(bookingId) ?? null,
-    enabled: Boolean(bookingId),
     staleTime: 0,
     retry: false,
+  });
+}
+
+export function useBookingResult(bookingId: string) {
+  return useQuery({
+    ...bookingResultQueryOptions(bookingId),
+    enabled: Boolean(bookingId),
   });
 }
 
