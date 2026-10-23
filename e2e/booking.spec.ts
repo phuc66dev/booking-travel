@@ -56,6 +56,57 @@ test("home has one main landmark containing its H1 and no missing-key warnings",
   expect(warnings).toEqual([]);
 });
 
+test("development UI panel demonstrates boundary isolation and Suspense fallback", async ({
+  page,
+}) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "Kiểm thử UI" }).click();
+
+  await page.getByRole("button", { name: "Gây lỗi kiểm thử" }).click();
+  await expect(
+    page.getByRole("alert").getByText("Lỗi đã được boundary cục bộ chặn"),
+  ).toBeVisible();
+  await expect(page.locator("header nav")).toBeVisible();
+  await expect(page.locator("main h1")).toBeVisible();
+  await page.getByRole("button", { name: "Khôi phục vùng kiểm thử" }).click();
+  await expect(
+    page.getByRole("button", { name: "Gây lỗi kiểm thử" }),
+  ).toBeVisible();
+
+  await page.getByRole("button", { name: "Boundary cục bộ: Có" }).click();
+  await page.getByRole("button", { name: "Gây lỗi kiểm thử" }).click();
+  await expect(
+    page.getByRole("heading", { name: "Boundary của trang đã bắt lỗi" }),
+  ).toBeVisible();
+  await expect(page.locator("main h1")).toHaveCount(1);
+  await expect(page.getByRole("heading", { name: "Hẹn nhau ở miền Tây" })).toHaveCount(0);
+  await expect(page.locator("header nav")).toBeVisible();
+  await page.getByRole("button", { name: "Khôi phục trang" }).click();
+  await expect(page.getByRole("heading", { name: "Hẹn nhau ở miền Tây" })).toBeVisible();
+  await page.getByRole("button", { name: "Boundary cục bộ: Không" }).click();
+
+  await page.getByRole("button", { name: "Mô phỏng tải chậm" }).click();
+  await expect(
+    page.getByText("Đang tải trong Suspense cục bộ…"),
+  ).toBeVisible();
+  await expect(
+    page.getByRole("status").getByText("Suspense đã tải xong nội dung kiểm thử."),
+  ).toBeVisible();
+  await page.getByRole("button", { name: "Đặt lại kiểm thử tải chậm" }).click();
+  await page.getByRole("button", { name: "Suspense cục bộ: Có" }).click();
+  await page.getByRole("button", { name: "Mô phỏng tải chậm" }).click();
+  await expect(
+    page.getByText(
+      "Đang tải ở Suspense bao ngoài (không có Suspense cục bộ)…",
+    ),
+  ).toBeVisible();
+  await expect(page.locator("header nav")).toBeVisible();
+  await expect(
+    page.getByRole("status").getByText("Suspense đã tải xong nội dung kiểm thử."),
+  ).toBeVisible();
+  await expect(page.locator("main h1")).toBeVisible();
+});
+
 test("complete booking, voucher/deposit, lookup and correct unpaid status", async ({
   page,
 }) => {

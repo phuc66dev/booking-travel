@@ -26,6 +26,8 @@ Lần đầu chạy browser: `npx playwright install chromium`. Build trước k
 
 Host production cần rewrite các URL ứng dụng về `index.html` vì dự án dùng SPA routing. Vite dev/preview có sẵn fallback này.
 
+Khi chạy `npm run dev`, mở nút **Kiểm thử UI** ở góc dưới bên phải. Với Error Boundary, bật boundary cục bộ chỉ thay vùng test bị lỗi; tắt nó sẽ làm boundary cấp trang thay toàn bộ nội dung trang bằng fallback. Header/footer và bảng test vẫn còn để khôi phục. Với Suspense, bật/tắt boundary cục bộ để so sánh fallback ở vùng nhỏ với vùng lớn hơn; tải chậm 1,8 giây. Bảng test chỉ có trong development; không xuất hiện trong production. E2E bao phủ cả hai chế độ.
+
 ## Các trang
 
 - `/`: giới thiệu, tìm tour, điểm đến, 6 tour nổi bật và quy trình đặt.

@@ -8,13 +8,14 @@ import {
   useLocation,
   Link,
 } from "@tanstack/react-router";
-import { lazy, Suspense, useCallback } from "react";
+import { lazy, Suspense, useCallback, useState } from "react";
 import type { QueryClient } from "@tanstack/react-query";
 import { queryClient } from "./query-client.ts";
 import { SiteHeader } from "../components/SiteHeader.tsx";
 import { SiteFooter } from "../shared/components/SiteFooter.tsx";
 import { AsyncState } from "../shared/components/AsyncState.tsx";
 import { PageBoundary } from "../shared/components/PageBoundary.tsx";
+import { UiTestPanel } from "../shared/components/UiTestPanel.tsx";
 import { parseTourSearch } from "../features/tours/domain/search.ts";
 import {
   tourQueryOptions,
@@ -61,6 +62,8 @@ export interface MyRouterContext {
 function RootComponent() {
   const location = useLocation();
   const navigate = useNavigate();
+  const [pageTestError, setPageTestError] = useState(false);
+  const [pageBoundaryKey, setPageBoundaryKey] = useState(0);
 
   const go = useCallback(
     (url: string) => {
@@ -73,12 +76,39 @@ function RootComponent() {
   return (
     <>
       <SiteHeader path={location.pathname} go={go} />
-      <PageBoundary key={location.pathname}>
+      <PageBoundary
+        key={`${location.pathname}-${pageBoundaryKey}`}
+        fallback={
+          pageTestError ? (
+            <main className="container empty ui-test-page-fallback" role="alert">
+              <h1>Boundary của trang đã bắt lỗi</h1>
+              <p>
+                Không có boundary cục bộ nên toàn bộ nội dung trang đã được
+                thay bằng giao diện dự phòng. Header, footer và bảng kiểm thử
+                vẫn hoạt động.
+              </p>
+              <button
+                className="cta"
+                type="button"
+                onClick={() => {
+                  setPageTestError(false);
+                  setPageBoundaryKey((key) => key + 1);
+                }}
+              >
+                Khôi phục trang
+              </button>
+            </main>
+          ) : undefined
+        }
+      >
         <Suspense fallback={<AsyncState />}>
-          <Outlet />
+          {pageTestError ? <SimulatedPageError /> : <Outlet />}
         </Suspense>
       </PageBoundary>
       <SiteFooter />
+      {isDev && (
+        <UiTestPanel onTriggerPageError={() => setPageTestError(true)} />
+      )}
       {isDev && (
         <Suspense fallback={null}>
           <RouterDevtools position="bottom-right" />
@@ -86,6 +116,10 @@ function RootComponent() {
       )}
     </>
   );
+}
+
+function SimulatedPageError(): never {
+  throw new Error("Lỗi kiểm thử được tạo có chủ đích.");
 }
 
 function NotFoundComponent() {
