@@ -1,33 +1,32 @@
-import { useState, type FormEvent, type ReactNode } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm, type SubmitHandler } from "react-hook-form";
+import { useState, type ReactNode } from "react";
 import { useLookupBooking } from "../api/booking-mutations.ts";
 import { navigateTo } from "../../../app/router.ts";
 import { renderLink } from "../../../shared/lib/render-link.tsx";
+import {
+  bookingLookupSchema,
+  type BookingLookupData,
+} from "../../../schemas/bookingLookupSchema.ts";
 
 export default function BookingLookupRoute() {
-  const [code, setCode] = useState("");
-  const [phone, setPhone] = useState("");
   const [notice, setNotice] = useState("");
   const mutation = useLookupBooking();
-  async function submit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
+  const submit: SubmitHandler<BookingLookupData> = async (data) => {
     if (mutation.isPending) return;
     setNotice("");
     try {
-      const booking = await mutation.mutateAsync({ code, phone });
+      const booking = await mutation.mutateAsync(data);
       if (booking) navigateTo("/booking/" + booking.id);
       else setNotice("Không tìm thấy đơn phù hợp");
     } catch {
       setNotice("Chưa tra cứu được. Vui lòng thử lại.");
     }
-  }
+  };
   return (
     <BookingLookupPage
-      code={code}
-      phone={phone}
       busy={mutation.isPending}
       notice={notice}
-      onCodeChange={setCode}
-      onPhoneChange={setPhone}
       onSubmit={submit}
       link={renderLink}
       onClearDemo={() => {
@@ -39,28 +38,28 @@ export default function BookingLookupRoute() {
 }
 
 interface BookingLookupPageProps {
-  code: string;
-  phone: string;
   busy: boolean;
   notice: string;
-  onCodeChange: (value: string) => void;
-  onPhoneChange: (value: string) => void;
-  onSubmit: (event: FormEvent<HTMLFormElement>) => void;
+  onSubmit: SubmitHandler<BookingLookupData>;
   onClearDemo: () => void;
   link: (url: string, label: ReactNode, className?: string) => ReactNode;
 }
 
 export function BookingLookupPage({
-  code,
-  phone,
   busy,
   notice,
-  onCodeChange,
-  onPhoneChange,
   onSubmit,
   onClearDemo,
   link,
 }: BookingLookupPageProps) {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<BookingLookupData>({
+    resolver: zodResolver(bookingLookupSchema),
+    mode: "onBlur",
+  });
   return (
     <main className="container narrow">
       <span className="eyebrow">THEO DÕI CHUYẾN ĐI</span>
@@ -74,24 +73,30 @@ export function BookingLookupPage({
           {notice}
         </p>
       )}
-      <form className="form-card" onSubmit={onSubmit}>
+      <form className="form-card" onSubmit={handleSubmit(onSubmit)} noValidate>
         <label>
           Mã yêu cầu
           <input
-            required
-            value={code}
-            onChange={(event) => onCodeChange(event.target.value)}
+            {...register("code")}
+            aria-invalid={!!errors.code}
+            aria-describedby="lookup-code-error"
             placeholder="MJ-XXXXXXXX"
           />
+          <span className="field-error" id="lookup-code-error">
+            {errors.code?.message}
+          </span>
         </label>
         <label>
           Số điện thoại
           <input
+            {...register("phone")}
             type="tel"
-            required
-            value={phone}
-            onChange={(event) => onPhoneChange(event.target.value)}
+            aria-invalid={!!errors.phone}
+            aria-describedby="lookup-phone-error"
           />
+          <span className="field-error" id="lookup-phone-error">
+            {errors.phone?.message}
+          </span>
         </label>
         <button className="cta full" disabled={busy}>
           {busy ? "Đang tra cứu…" : "Tra cứu yêu cầu"}

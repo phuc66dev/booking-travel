@@ -1,6 +1,12 @@
-import { useRef } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect, useRef, type ChangeEvent } from "react";
+import { useForm } from "react-hook-form";
 import { trapDialogFocus } from "../shared/lib/dialog-focus.ts";
 import type { TourFilterKey } from "./tours/types.ts";
+import {
+  tourFilterSchema,
+  type TourFilterData,
+} from "../schemas/tourSchema.ts";
 
 interface Props {
   params: URLSearchParams;
@@ -9,23 +15,36 @@ interface Props {
 }
 export function TourFilters({ params, filter, clear }: Props) {
   const dialog = useRef<HTMLDialogElement>(null);
+  const { register, reset } = useForm<TourFilterData>({
+    resolver: zodResolver(tourFilterSchema),
+    defaultValues: getFilterValues(params),
+  });
+  useEffect(() => {
+    reset(getFilterValues(params));
+  }, [params, reset]);
+  const registerFilter = (name: keyof TourFilterData) => {
+    const field = register(name);
+    return {
+      ...field,
+      onChange: (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+        void field.onChange(event);
+        filter(name as TourFilterKey, event.target.value);
+      },
+    };
+  };
   const fields = () => (
     <div className="filters">
       <h3>Lọc hành trình</h3>
       <label>
         Điểm đến
         <input
-          value={params.get("q") || ""}
-          onChange={(e) => filter("q", e.target.value)}
+          {...registerFilter("q")}
           placeholder="Bến Tre, Cần Thơ…"
         />
       </label>
       <label>
         Thời lượng
-        <select
-          value={params.get("duration") || ""}
-          onChange={(e) => filter("duration", e.target.value)}
-        >
+        <select {...registerFilter("duration")}>
           <option value="">Tất cả</option>
           <option value="1">1 ngày</option>
           <option value="2">2 ngày 1 đêm</option>
@@ -33,10 +52,7 @@ export function TourFilters({ params, filter, clear }: Props) {
       </label>
       <label>
         Khoảng giá
-        <select
-          value={params.get("price") || ""}
-          onChange={(e) => filter("price", e.target.value)}
-        >
+        <select {...registerFilter("price")}>
           <option value="">Tất cả</option>
           <option value="1500000">Dưới 1.500.000 ₫</option>
           <option value="2000000">Dưới 2.000.000 ₫</option>
@@ -45,9 +61,8 @@ export function TourFilters({ params, filter, clear }: Props) {
       <label>
         Ngày khởi hành
         <input
+          {...registerFilter("date")}
           type="date"
-          value={params.get("date") || ""}
-          onChange={(e) => filter("date", e.target.value)}
         />
       </label>
       <button type="button" className="outline full" onClick={clear}>
@@ -86,4 +101,13 @@ export function TourFilters({ params, filter, clear }: Props) {
       </dialog>
     </>
   );
+}
+
+function getFilterValues(params: URLSearchParams): TourFilterData {
+  return {
+    q: params.get("q") || "",
+    duration: (params.get("duration") as TourFilterData["duration"]) || "",
+    price: (params.get("price") as TourFilterData["price"]) || "",
+    date: params.get("date") || "",
+  };
 }
