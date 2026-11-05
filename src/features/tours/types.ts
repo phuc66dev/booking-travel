@@ -5,6 +5,17 @@ export type Departure = (typeof departures)[number];
 
 export type TourSort = "relevance" | "price-asc" | "price-desc" | "nearest";
 
+export type TourFilterKey =
+  | "q"
+  | "date"
+  | "departureDate"
+  | "duration"
+  | "price"
+  | "maxPrice"
+  | "sort"
+  | "page"
+  | "demo";
+
 export interface TourSearchParams {
   q?: string;
   destination?: string;
