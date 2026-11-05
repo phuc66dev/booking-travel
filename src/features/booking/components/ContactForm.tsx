@@ -1,3 +1,6 @@
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { contactSchema, type ContactFormData } from "../../../schemas/contactSchema.ts";
 import type { Contact } from "../types.ts";
 import { profileView } from "../../../shared/lib/diagnostics.tsx";
 
@@ -23,6 +26,19 @@ export function ContactForm({
   onChange,
   onBlur,
 }: ContactFormProps) {
+  const {
+    register,
+    formState: { errors: formErrors },
+  } = useForm<ContactFormData>({
+    resolver: zodResolver(contactSchema),
+    mode: "onBlur",
+    reValidateMode: "onChange",
+    defaultValues: {
+      ...contact,
+      agree: false,
+    },
+  });
+
   return profileView(
     "ContactForm",
     <section className="form-card">
@@ -33,27 +49,29 @@ export function ContactForm({
           {label}
           {name === "note" ? (
             <textarea
+              {...register(name, {
+                onChange: (event) => onChange(name, event.target.value),
+                onBlur: () => onBlur(name),
+              })}
               id={name}
               maxLength={500}
-              value={contact[name]}
-              aria-invalid={!!errors[name]}
+              aria-invalid={!!(errors[name] || formErrors[name])}
               aria-describedby={`${name}-error`}
-              onBlur={() => onBlur(name)}
-              onChange={(event) => onChange(name, event.target.value)}
             />
           ) : (
             <input
+              {...register(name, {
+                onChange: (event) => onChange(name, event.target.value),
+                onBlur: () => onBlur(name),
+              })}
               id={name}
               type={type}
-              value={contact[name]}
-              aria-invalid={!!errors[name]}
+              aria-invalid={!!(errors[name] || formErrors[name])}
               aria-describedby={`${name}-error`}
-              onBlur={() => onBlur(name)}
-              onChange={(event) => onChange(name, event.target.value)}
             />
           )}
           <span className="field-error" id={`${name}-error`}>
-            {errors[name]}
+            {errors[name] || formErrors[name]?.message}
           </span>
         </label>
       ))}
