@@ -1,4 +1,6 @@
-import { memo, useRef } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { memo, useEffect } from "react";
+import { useForm } from "react-hook-form";
 import { photos, dateLabel } from "../../../data/mock-tours.ts";
 import { SafeImage } from "../../../shared/components/SafeImage.tsx";
 import { PriceBreakdown } from "../../../components/PriceBreakdown.tsx";
@@ -8,6 +10,7 @@ import { profileView } from "../../../shared/lib/diagnostics.tsx";
 import type { Tour, Departure } from "../../tours/types.ts";
 import type { Draft, PriceQuote } from "../types.ts";
 import type { PriceChangedError } from "../api/booking-service.ts";
+import { voucherSchema, type VoucherData } from "../../../schemas/tourSchema.ts";
 
 interface Props {
   tour: Tour;
@@ -48,7 +51,19 @@ export function BookingSummaryView(props: Props) {
     onUpdate,
     onAcceptPrice,
   } = props;
-  const voucher = useRef<HTMLInputElement>(null);
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors: voucherErrors },
+  } = useForm<VoucherData>({
+    resolver: zodResolver(voucherSchema),
+    defaultValues: { voucher: draft.voucherCode },
+    mode: "onBlur",
+  });
+  useEffect(() => {
+    reset({ voucher: draft.voucherCode });
+  }, [draft.voucherCode, reset]);
   return profileView(
     "BookingSummary",
     <aside
@@ -77,24 +92,26 @@ export function BookingSummaryView(props: Props) {
         <label>
           Mã ưu đãi
           <input
-            ref={voucher}
-            key={draft.voucherCode}
-            name="voucher"
+            {...register("voucher")}
             disabled={busy}
             aria-describedby="voucher-feedback"
             placeholder="MEKONG100"
-            defaultValue={draft.voucherCode}
           />
         </label>
         <button
           className="outline"
           type="button"
           disabled={busy}
-          onClick={() => onVoucher(voucher.current?.value || "")}
+          onClick={() =>
+            void handleSubmit(({ voucher: value }) => onVoucher(value))()
+          }
         >
           Áp dụng
         </button>
       </div>
+      {voucherErrors.voucher && (
+        <p className="field-error">{voucherErrors.voucher.message}</p>
+      )}
       <p id="voucher-feedback" role="status" className="voucher-feedback">
         {voucherFeedback}
       </p>

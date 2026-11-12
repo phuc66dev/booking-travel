@@ -1,5 +1,11 @@
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useRef } from "react";
+import { useForm } from "react-hook-form";
 import { trapDialogFocus } from "../shared/lib/dialog-focus.ts";
+import { z } from "zod";
+
+const headerSearchSchema = z.object({ q: z.string().trim() });
+type HeaderSearchData = z.infer<typeof headerSearchSchema>;
 interface Props {
   path: string;
   go: (url: string) => void;
@@ -7,6 +13,10 @@ interface Props {
 export function SiteHeader({ path, go }: Props) {
   const drawer = useRef<HTMLDialogElement>(null);
   const search = useRef<HTMLDialogElement>(null);
+  const searchForm = useForm<HeaderSearchData>({
+    resolver: zodResolver(headerSearchSchema),
+    defaultValues: { q: "" },
+  });
   const link = (url: string, text: React.ReactNode, cls = "") => (
     <a
       className={cls}
@@ -117,16 +127,20 @@ export function SiteHeader({ path, go }: Props) {
         </button>
         <h2>Bạn muốn đi đâu?</h2>
         <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            const data = new FormData(e.currentTarget);
-            search.current?.close();
-            go("/tours?q=" + encodeURIComponent(String(data.get("q") || "")));
+          onSubmit={(event) => {
+            void searchForm.handleSubmit((data) => {
+              search.current?.close();
+              go("/tours?q=" + encodeURIComponent(data.q));
+            })(event);
           }}
         >
           <label>
             Điểm đến
-            <input name="q" placeholder="Bến Tre, Cần Thơ…" autoFocus />
+            <input
+              {...searchForm.register("q")}
+              placeholder="Bến Tre, Cần Thơ…"
+              autoFocus
+            />
           </label>
           <button className="cta full">Tìm hành trình →</button>
         </form>
